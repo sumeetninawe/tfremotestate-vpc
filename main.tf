@@ -28,14 +28,23 @@ resource "aws_subnet" "private_a" {
   }
 }
 
+# # Additional private subnet
+# resource "aws_subnet" "private_b" {
+#   vpc_id     = aws_vpc.sl_vpc.id
+#   cidr_block = var.pri_sub_b_cidr
+#   tags = {
+#     Name = var.pri_sub_b_name
+#   }
+# }
+
 # Create internet gateway
 resource "aws_internet_gateway" "sl_igw" {
-  vpc_id   = aws_vpc.sl_vpc.id
+  vpc_id = aws_vpc.sl_vpc.id
 }
 
 # Create route table for public subnet
 resource "aws_route_table" "sl_public_rt" {
-  vpc_id   = aws_vpc.sl_vpc.id
+  vpc_id = aws_vpc.sl_vpc.id
 }
 
 # Create default route for public subnet to use the internet gateway
@@ -53,7 +62,7 @@ resource "aws_route_table_association" "sl_pub_sub_rt" {
 
 # Create route table for private subnet
 resource "aws_route_table" "sl_private_rt" {
-  vpc_id   = aws_vpc.sl_vpc.id
+  vpc_id = aws_vpc.sl_vpc.id
 }
 
 # Associate private subnet with the private route table
